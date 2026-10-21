@@ -74,6 +74,7 @@ def evaluate_model(clf, X_test: np.ndarray, y_test: np.ndarray) -> dict:
     """Evaluate the model and return the evaluation metrics."""
     try:
         y_pred = clf.predict(X_test)
+        
 
         y_pred = pd.Series(y_pred).map({
             'sadness': 0,
@@ -133,6 +134,7 @@ def main():
             y_test = test_data.iloc[:, -1]
            
             y_test=y_test.map({'happiness':1,'sadness':0})
+            y_test=y_test[~y_test.isnull()]
             y_test=y_test.values
 
 
