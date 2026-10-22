@@ -134,7 +134,7 @@ def main():
             y_test = test_data.iloc[:, -1]
            
             y_test=y_test.map({'happiness':1,'sadness':0})
-            y_test=y_test[~y_test.isnull()]
+            
             y_test=y_test.values
 
 
