@@ -76,10 +76,12 @@ def evaluate_model(clf, X_test: np.ndarray, y_test: np.ndarray) -> dict:
         y_pred = clf.predict(X_test)
         
 
-        y_pred = pd.Series(y_pred).map({
-            'sadness': 0,
-            'happiness': 1
-        }).values
+        y_pred = pd.Series(y_pred).map( {
+        "sadness": 0,
+        "happiness": 1,
+        "0": 0,
+        "1": 1
+         }).values
 
         y_pred_proba = clf.predict_proba(X_test)[:, 1]
 
