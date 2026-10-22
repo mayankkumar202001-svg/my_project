@@ -18,20 +18,19 @@ DAGSHUB_TOKEN = os.getenv("DAGSHUB_PAT")
 
 if not DAGSHUB_TOKEN:
     raise EnvironmentError(
-        "DAGSHUB_PAT environment variable is not set"
+        "DAGSHUB_PAT is missing. Configure it in GitHub Actions Secrets."
     )
 
-os.environ["MLFLOW_TRACKING_USERNAME"] = DAGSHUB_TOKEN
-os.environ["MLFLOW_TRACKING_PASSWORD"] = DAGSHUB_TOKEN
-
-DAGSHUB_URL = "https://dagshub.com"
 REPO_OWNER = "mayankkumar202001-svg"
 REPO_NAME = "my_project"
 REGISTERED_MODEL_NAME = "sentiment-analysis-model"
 
 MLFLOW_TRACKING_URI = (
-    f"{DAGSHUB_URL}/{REPO_OWNER}/{REPO_NAME}.mlflow"
+    f"https://dagshub.com/{REPO_OWNER}/{REPO_NAME}.mlflow"
 )
+
+os.environ["MLFLOW_TRACKING_USERNAME"] = REPO_OWNER
+os.environ["MLFLOW_TRACKING_PASSWORD"] = DAGSHUB_TOKEN
 
 mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 
@@ -191,14 +190,10 @@ def main():
         )
 
         # Initialize DagsHub
-        dagshub.init(
-            repo_owner=REPO_OWNER,
-            repo_name=REPO_NAME,
-            mlflow=True
-        )
+       
 
         # Explicitly set tracking URI
-        mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+        
 
         logger.info(
             "MLflow tracking URI configured: %s",
